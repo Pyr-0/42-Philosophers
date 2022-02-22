@@ -6,7 +6,7 @@
 /*   By: mrojas-e <mrojas-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 20:26:52 by mrojas-e          #+#    #+#             */
-/*   Updated: 2022/02/21 19:48:59 by mrojas-e         ###   ########.fr       */
+/*   Updated: 2022/02/22 10:17:05 by mrojas-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_data {
 	int			time_to_eat;
 	int			time_to_die;
 	int			time_to_sleep;
+	int			has_eaten;
 	t_phil		**philos;
 }	t_data;
 

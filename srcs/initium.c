@@ -6,7 +6,7 @@
 /*   By: mrojas-e <mrojas-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 16:23:52 by mrojas-e          #+#    #+#             */
-/*   Updated: 2022/02/21 19:45:28 by mrojas-e         ###   ########.fr       */
+/*   Updated: 2022/02/22 10:34:12 by mrojas-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	join_threads()
 		printf("Philosopher %d has finished\n", i);
 		i++;
 	}
-} 
+}
 
 t_phil	*new_phil(int i)
 {
@@ -50,15 +50,23 @@ void	init_philos()
 		all()->philos[i] = new_phil(i);
 
 	join_threads();
-	
 }
 
 void	init_data(char **argv)
 {
+	
 	all()->p_count = ft_atoi(argv[1]);
-		printf("TEST!\n");
+	if (all()->p_count > 200)
+	{
+		printf("Error\n");
+		exit (1);
+	}
 	all()->time_to_die = ft_atoi(argv[2]);
 	all()->time_to_eat = ft_atoi(argv[3]);
 	all()->time_to_sleep = ft_atoi(argv[4]);
+	/* if (argv == 6)
+		all()->has_eaten = ft_atoi(argv[5]);
+	else
+		all()->has_eaten = 0; */
 	init_philos();
 }

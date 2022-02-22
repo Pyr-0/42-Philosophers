@@ -6,7 +6,7 @@
 #    By: mrojas-e <mrojas-e@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/20 16:08:58 by mrojas-e          #+#    #+#              #
-#    Updated: 2022/02/21 18:33:58 by mrojas-e         ###   ########.fr        #
+#    Updated: 2022/02/22 09:24:16 by mrojas-e         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,21 +24,21 @@ OBJS 		=	$(SRCS:%.c=$(DIR_OBJS)%.o)
 all:			$(NAME)
 
 $(NAME):		$(OBJS)
-				@tput setaf 207 && printf " object files compiled.\n"
+				@tput setaf 05 && printf "Sources Succesfully Compiled!\n"
 				@$(CC) $(CC_FLAGS) -I $(DIR_HEADERS) $(OBJS) -o $(NAME)
 				@tput setaf 013 && printf "$(NAME) created.\n"
 
 $(OBJS):		$(DIR_OBJS)
 
 $(DIR_OBJS)%.o: $(DIR_SRCS)%.c
-				@tput setaf 207 && printf "Compiling sources $<"
+#				@tput setaf 207 && printf "\nCompiling sources\n$<"
 				@$(CC) $(CC_FLAGS) -I $(DIR_HEADERS) -c $< -o $@
 $(DIR_OBJS):
 				@mkdir $@
 
 clean:
 				@$(RM) $(DIR_OBJS)
-				@tput setaf 117 && printf "object files  deleted.\n"
+				@tput setaf 117 && printf "\nobject files  deleted.\n"
 				
 fclean:			clean
 				@$(RM) $(NAME)
