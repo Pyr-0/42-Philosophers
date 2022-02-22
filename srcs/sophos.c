@@ -6,7 +6,7 @@
 /*   By: mrojas-e <mrojas-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 13:25:07 by mrojas-e          #+#    #+#             */
-/*   Updated: 2022/02/22 13:50:32 by mrojas-e         ###   ########.fr       */
+/*   Updated: 2022/02/22 20:31:22 by mrojas-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,23 @@ void	*routine(void *args)
 	t_phil *philo;
 
 	philo = (t_phil *)args;
-
+	philo->start_timep = time_start();
+	printf("%lu TIME IS\n", philo->start_timep);
+	unsigned long diff = time_start(philo->start_timep);
+	printf("%lu NEW TIME IS\n", diff);
 	while(all()->p_count)
 	{
 		//pthread_mutex_unlock(&philo->fork);
-		printf("Philo %d is eating\n", philo->phil_id);
+		//long dif = get_time(philo->start_timep);
+		printf("Philo %d is eating\n",philo->phil_id);
 		//pthread_mutex_lock(&philo->fork);
+		printf("Philo %d is sleeping\n", philo->phil_id);
+		
 		printf("Philo %d is sleeping\n", philo->phil_id);
 	}
 	return (NULL);
 }
-//MAX INT CHECK PLEASE! 
+//MAX INT CHECK PLEASE!
 int main(int argc, char **argv)
 {
 	if (input_check(argv) && (argc == 5 || argc == 6))

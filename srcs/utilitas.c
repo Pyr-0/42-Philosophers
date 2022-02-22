@@ -6,18 +6,26 @@
 /*   By: mrojas-e <mrojas-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 16:44:07 by mrojas-e          #+#    #+#             */
-/*   Updated: 2022/02/22 13:34:04 by mrojas-e         ###   ########.fr       */
+/*   Updated: 2022/02/22 19:56:26 by mrojas-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sophos.h"
 
-unsigned long	get_time(int begin_time)
+unsigned long	get_time(unsigned long begin_time)
 {
 	struct timeval	t1;
 
 	gettimeofday(&t1, NULL);
 	return ((t1.tv_sec * 1000 + t1.tv_usec / 1000) - begin_time);
+}
+
+unsigned long	time_start()
+{
+	struct timeval	t1;
+
+	gettimeofday(&t1, NULL);
+	return (t1.tv_sec * 1000 + t1.tv_usec / 1000);
 }
 
 static	int	ft_isspace(char c)

@@ -6,7 +6,7 @@
 /*   By: mrojas-e <mrojas-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 16:23:52 by mrojas-e          #+#    #+#             */
-/*   Updated: 2022/02/22 13:56:36 by mrojas-e         ###   ########.fr       */
+/*   Updated: 2022/02/22 20:19:37 by mrojas-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,15 @@ void	init_philos()
 			return ;
 	}
 	all()->philos[all()->p_count] = NULL;
+	all()->start_time = time_start();
 	join_threads();
 }
 
 
 void	init_data(int argc, char **argv)
 {
-	all()->p_count = ft_atoi(argv[1]);	
-	printf("Philos are :%d\n",all()->p_count);
+	all()->p_count = ft_atoi(argv[1]);
+	all()->start_time = get_time(0);
 	if (all()->p_count > 200)
 	{
 		printf("Error invalid amount of philos\n");
@@ -85,38 +86,9 @@ void	init_data(int argc, char **argv)
 	all()->time_to_die = ft_atoi(argv[2]);
 	all()->time_to_eat = ft_atoi(argv[3]);
 	all()->time_to_sleep = ft_atoi(argv[4]);
-	printf("Die is :%d\n",all()->time_to_die);//
-	printf("Eat is :%d\n",all()->time_to_eat);//
-	printf("Sleep is :%d\n",all()->time_to_sleep);//
 	if (argc == 6)
 		all()->times_eaten = ft_atoi(argv[5]);
 	else
 		all()->times_eaten = 0; // how to handle !!?
-	
-	printf("Times eaten is : %d\n",all()->times_eaten);//
 	init_philos();
-}
-
-void	free_data(void)
-{
-	int	i;
-
-	i = -1;
-	while (++i < all()->threads_num)
-	{
-		if (pthread_mutex_destroy(&all()->philos[i]->lock_fork) != 0)
-			printf("Couldn't destroy Mutex");
-	}
-	if (pthread_mutex_destroy(&all()->print) != 0)
-		printf("Couldn't destroy Mutex");
-	if (pthread_mutex_destroy(&all()->init_lock) != 0)
-		printf("Couldn't destroy Mutex");
-	i = -1;
-	while (++i < all()->threads_num)
-	{
-		free(all()->philos[i]);
-		all()->philos[i] = NULL;
-	}
-	free(all()->philos);
-	all()->philos = NULL;
 }
