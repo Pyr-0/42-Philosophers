@@ -6,7 +6,7 @@
 /*   By: mrojas-e <mrojas-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 16:23:52 by mrojas-e          #+#    #+#             */
-/*   Updated: 2022/02/22 12:49:11 by mrojas-e         ###   ########.fr       */
+/*   Updated: 2022/02/22 13:56:36 by mrojas-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_phil	*new_phil(int i)
 		return (NULL);
 	new->phil_id = i + 1;
 	if (pthread_mutex_init(&new->fork, NULL) != 0)
-		printf("error");
+		printf("Mutex was not created");
 	if (pthread_create(&new->thread_id, NULL, &routine, new))
 		all()->thread_count++; // what this!?
 	return (new);
@@ -76,7 +76,7 @@ void	init_philos()
 void	init_data(int argc, char **argv)
 {
 	all()->p_count = ft_atoi(argv[1]);	
-	printf("philos are :%d\n",all()->p_count);
+	printf("Philos are :%d\n",all()->p_count);
 	if (all()->p_count > 200)
 	{
 		printf("Error invalid amount of philos\n");
@@ -89,10 +89,34 @@ void	init_data(int argc, char **argv)
 	printf("Eat is :%d\n",all()->time_to_eat);//
 	printf("Sleep is :%d\n",all()->time_to_sleep);//
 	if (argc == 6)
-		all()->has_eaten = ft_atoi(argv[5]);
+		all()->times_eaten = ft_atoi(argv[5]);
 	else
-		all()->has_eaten = 0; // how to handle !!?
+		all()->times_eaten = 0; // how to handle !!?
 	
-	printf("has eaten is : %d\n",all()->has_eaten);//
+	printf("Times eaten is : %d\n",all()->times_eaten);//
 	init_philos();
+}
+
+void	free_data(void)
+{
+	int	i;
+
+	i = -1;
+	while (++i < all()->threads_num)
+	{
+		if (pthread_mutex_destroy(&all()->philos[i]->lock_fork) != 0)
+			printf("Couldn't destroy Mutex");
+	}
+	if (pthread_mutex_destroy(&all()->print) != 0)
+		printf("Couldn't destroy Mutex");
+	if (pthread_mutex_destroy(&all()->init_lock) != 0)
+		printf("Couldn't destroy Mutex");
+	i = -1;
+	while (++i < all()->threads_num)
+	{
+		free(all()->philos[i]);
+		all()->philos[i] = NULL;
+	}
+	free(all()->philos);
+	all()->philos = NULL;
 }

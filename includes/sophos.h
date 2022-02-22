@@ -6,7 +6,7 @@
 /*   By: mrojas-e <mrojas-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 20:26:52 by mrojas-e          #+#    #+#             */
-/*   Updated: 2022/02/22 11:56:21 by mrojas-e         ###   ########.fr       */
+/*   Updated: 2022/02/22 13:43:15 by mrojas-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@
 #include <stdbool.h>
 
 typedef struct s_phil{
-	pthread_mutex_t	fork;
-	pthread_t		thread_id;
 	int				phil_id;
+	pthread_t		thread_id;
+	pthread_mutex_t	fork;
 }	t_phil;
 
 typedef struct s_data{
@@ -34,7 +34,7 @@ typedef struct s_data{
 	int				time_to_die;
 	int				time_to_sleep;
 	int				start_time;
-	int				has_eaten;
+	int				times_eaten;
 	t_phil			**philos;
 }	t_data;
 
@@ -42,11 +42,11 @@ typedef struct s_data{
 t_data			*all(void);
 int				initium(int argc, char **argv, t_data *data);
 int				ft_atoi(const char *str);
-unsigned long	get_time(ssize_t begin_time);
 void			*routine();
 void			init_philos();
 void			init_data(int argc, char **argv);
-void				free_all();
+void			free_all();
+unsigned long	get_time(int begin_time);
 
 
 #endif

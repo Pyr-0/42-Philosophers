@@ -6,7 +6,7 @@
 /*   By: mrojas-e <mrojas-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 13:25:07 by mrojas-e          #+#    #+#             */
-/*   Updated: 2022/02/22 12:58:03 by mrojas-e         ###   ########.fr       */
+/*   Updated: 2022/02/22 13:50:32 by mrojas-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ void	*routine(void *args)
 
 	philo = (t_phil *)args;
 
-	//pthread_mutex_lock(&philo->fork);
 	while(all()->p_count)
 	{
+		//pthread_mutex_unlock(&philo->fork);
 		printf("Philo %d is eating\n", philo->phil_id);
+		//pthread_mutex_lock(&philo->fork);
 		printf("Philo %d is sleeping\n", philo->phil_id);
 	}
-	//pthread_mutex_unlock(&philo->fork);
 	return (NULL);
 }
 //MAX INT CHECK PLEASE! 
