@@ -6,13 +6,13 @@
 #    By: mrojas-e <mrojas-e@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/20 16:08:58 by mrojas-e          #+#    #+#              #
-#    Updated: 2022/02/22 09:24:16 by mrojas-e         ###   ########.fr        #
+#    Updated: 2022/02/22 11:53:00 by mrojas-e         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 		=	philo
 CC			=	gcc
-CC_FLAGS	=	-Wall -Wextra -Werror
+CC_FLAGS	=	-Wall -Werror -Wextra
 RM			=	rm -rf
 DIR_HEADERS =	./includes/
 DIR_SRCS	=	./srcs/

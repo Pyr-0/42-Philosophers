@@ -6,7 +6,7 @@
 /*   By: mrojas-e <mrojas-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 13:25:07 by mrojas-e          #+#    #+#             */
-/*   Updated: 2022/02/21 19:32:41 by mrojas-e         ###   ########.fr       */
+/*   Updated: 2022/02/22 12:48:46 by mrojas-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,24 +47,18 @@ void	*routine(void *args)
 	t_phil *philo;
 
 	philo = (t_phil *)args;
-	int i;
-	i = 0;
-	while (i != all()->p_count)
-	{
-		pthread_mutex_lock(&philo->fork);
-		i++;
-		printf("Hey its Philo No %d!\n", philo->phil_id);
-		pthread_mutex_unlock(&philo->fork);
-	}
+
+	pthread_mutex_lock(&philo->fork);
+	printf("Hey its Philo No %d!\n", philo->phil_id);
+	printf("Hey its Philo No %d!\n", philo->phil_id);
+	pthread_mutex_unlock(&philo->fork);
 	return (NULL);
 }
-
+//MAX INT CHECK PLEASE! 
 int main(int argc, char **argv)
 {
-	t_data data;
-
 	if (input_check(argv) && (argc == 5 || argc == 6))
-		init_data(argc, argv, &data);
+		init_data(argc, argv);
 	else
 		printf("Invalid Input!\n");
 	return (0);
