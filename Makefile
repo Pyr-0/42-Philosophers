@@ -6,7 +6,7 @@
 #    By: mrojas-e <mrojas-e@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/20 16:08:58 by mrojas-e          #+#    #+#              #
-#    Updated: 2022/02/22 11:53:00 by mrojas-e         ###   ########.fr        #
+#    Updated: 2022/02/23 22:15:05 by mrojas-e         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ RM			=	rm -rf
 DIR_HEADERS =	./includes/
 DIR_SRCS	=	./srcs/
 DIR_OBJS	=	./obj/
-SRC			=	sophos.c utilitas.c initium.c
+SRC			=	sophos.c utilitas.c initium.c veritas.c instructio.c
 SRCS		=	$(SRC)
 OBJS 		=	$(SRCS:%.c=$(DIR_OBJS)%.o)
 

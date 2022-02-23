@@ -6,7 +6,7 @@
 /*   By: mrojas-e <mrojas-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 16:44:07 by mrojas-e          #+#    #+#             */
-/*   Updated: 2022/02/22 19:56:26 by mrojas-e         ###   ########.fr       */
+/*   Updated: 2022/02/23 22:26:48 by mrojas-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,6 @@ unsigned long	get_time(unsigned long begin_time)
 
 	gettimeofday(&t1, NULL);
 	return ((t1.tv_sec * 1000 + t1.tv_usec / 1000) - begin_time);
-}
-
-unsigned long	time_start()
-{
-	struct timeval	t1;
-
-	gettimeofday(&t1, NULL);
-	return (t1.tv_sec * 1000 + t1.tv_usec / 1000);
 }
 
 static	int	ft_isspace(char c)
@@ -43,7 +35,7 @@ static int	ft_isdigit(int c)
 	return (0);
 }
 
-int	ft_atoi(const char *str)
+bool	ft_atoi(const char *str, int *res)
 {
 	int		sign;
 	long	result;
@@ -64,7 +56,17 @@ int	ft_atoi(const char *str)
 	while (ft_isdigit(str[counter]))
 	{
 		result = result * 10 + (str[counter] - '0');
+		if (result > INT_MAX || result *sign < INT_MIN)
+			return (false);
 		counter++;
 	}
-	return (result * sign);
+	*res = result * sign;
+	return (true);
+}
+
+t_data	*all(void)
+{
+	static t_data all;
+
+	return (&all);
 }

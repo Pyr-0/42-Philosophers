@@ -6,7 +6,7 @@
 /*   By: mrojas-e <mrojas-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 20:26:52 by mrojas-e          #+#    #+#             */
-/*   Updated: 2022/02/22 20:13:51 by mrojas-e         ###   ########.fr       */
+/*   Updated: 2022/02/23 22:16:13 by mrojas-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,36 +19,53 @@
 #include <pthread.h>
 #include <sys/time.h>
 #include <stdbool.h>
+#include <limits.h>
+
+
+enum e_status {
+	THINK ,
+	SLEEP ,
+	READY,
+	DEAD ,
+	DONE ,
+};
 
 typedef struct s_phil{
 	int				phil_id;
 	unsigned long	start_timep;
 	pthread_t		thread_id;
 	pthread_mutex_t	fork;
+	bool 			value;
+	int				state;
+	int				times_eaten;
+	
 }	t_phil;
 
 typedef struct s_data{
 	pthread_mutex_t init;
 	int				p_count;
 	int				thread_count;
-	int				time_to_eat;
-	int				time_to_die;
-	int				time_to_sleep;
+	int				t_to_eat;
+	int				t_to_die;
+	int				t_to_sleep;
+	int				meal_limit;
 	unsigned long	start_time;
-	int				times_eaten;
 	t_phil			**philos;
 }	t_data;
 
 
 t_data			*all(void);
 int				initium(int argc, char **argv, t_data *data);
-int				ft_atoi(const char *str);
+bool			ft_atoi(const char *str, int *res);
+bool			init_data(int argc, char **argv);
 void			*routine();
 void			init_philos();
-void			init_data(int argc, char **argv);
 void			free_all();
-unsigned long	time_start();
 unsigned long	get_time(unsigned long begin_time);
+bool			take_fork(t_phil *fork, t_phil *phil);
+bool			drop_fork(t_phil *fork, t_phil *phil);
+bool			input_check(char **argv);
+void			eat(t_phil *fork, t_phil *phil);
 
 
 #endif
