@@ -6,14 +6,13 @@
 /*   By: mrojas-e <mrojas-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 18:48:02 by mrojas-e          #+#    #+#             */
-/*   Updated: 2022/02/23 22:17:33 by mrojas-e         ###   ########.fr       */
+/*   Updated: 2022/02/25 12:09:44 by mrojas-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* #include "sophos.h"
+#include "sophos.h"
 
-void	eat(t_phil *fork, t_phil *phil)
+/* void	eat(t_phil *fork, t_phil *phil)
 {
 	take_fork(&fork, phil->phil_id);
-}
- */
+} */
