@@ -6,7 +6,7 @@
 /*   By: mrojas-e <mrojas-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 18:23:12 by mrojas-e          #+#    #+#             */
-/*   Updated: 2022/02/25 19:06:17 by mrojas-e         ###   ########.fr       */
+/*   Updated: 2022/02/25 19:18:54 by mrojas-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ bool	take_fork(t_phil *philo)
 	if (philo->value == true)
 		printf("%lu %d has taken a fork\n",
 			get_time(all()->start_time), philo->phil_id);
-	printf("%lu %d has taken a fork1\n",
-		get_time(all()->start_time), philo->phil_id);
 	pthread_mutex_lock(&all()->philos[philo->phil_id % all()->p_count]->fork);
 	printf("%lu %d has taken a fork2\n",
 		get_time(all()->start_time), philo->phil_id);
