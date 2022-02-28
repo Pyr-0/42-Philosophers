@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sophos.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrojas-e <mrojas-e@student.42.fr>          +#+  +:+       +#+        */
+/*   By: satori <satori@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 20:26:52 by mrojas-e          #+#    #+#             */
-/*   Updated: 2022/02/25 17:10:39 by mrojas-e         ###   ########.fr       */
+/*   Updated: 2022/02/28 16:32:15 by satori           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,16 @@ enum e_status {
 	DONE ,
 };
 
+typedef struct s_fork{
+	bool			value;
+	pthread_mutex_t	mutex;
+}t_fork;
+
 typedef struct s_phil{
 	int				phil_id;
 	unsigned long	start_timep;
+	struct s_fork	fork;
 	pthread_t		thread_id;
-	pthread_mutex_t	fork;
-	bool 			value;
 	int				state;
 	int				times_eaten;
 }	t_phil;
@@ -62,7 +66,7 @@ void			init_philos();
 void			free_all();
 unsigned long	get_time(unsigned long begin_time);
 bool			take_fork(t_phil *philo);
-bool			drop_fork(t_phil *fork, t_phil *phil);
+bool			drop_fork(t_phil *philo);
 bool			input_check(char **argv);
 void			eat(t_phil *fork, t_phil *phil);
 

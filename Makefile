@@ -12,7 +12,7 @@
 
 NAME 		=	philo
 CC			=	gcc
-CC_FLAGS	=	-Wall -Werror -Wextra
+CC_FLAGS	=	-Wall -Werror -Wextra -pthread
 RM			=	rm -rf
 DIR_HEADERS =	./includes/
 DIR_SRCS	=	./srcs/

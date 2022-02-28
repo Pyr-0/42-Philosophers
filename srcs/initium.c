@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initium.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrojas-e <mrojas-e@student.42.fr>          +#+  +:+       +#+        */
+/*   By: satori <satori@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 16:23:52 by mrojas-e          #+#    #+#             */
-/*   Updated: 2022/02/25 18:45:20 by mrojas-e         ###   ########.fr       */
+/*   Updated: 2022/02/28 16:08:20 by satori           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ t_phil	*new_phil(int i)
 	new->phil_id = i + 1;
 	new->state = READY;
 	new->times_eaten = 0;
-	if (pthread_mutex_init(&new->fork, NULL) != 0)
-		printf("Mutex was not created");
-	if (pthread_create(&new->thread_id, NULL, &routine, new))
-		all()->thread_count++; // what this!?
+	if (pthread_mutex_init(&new->fork.mutex, NULL) != 0)
+		printf("Mutex was not created"); // program must end 
+	if (pthread_create(&new->thread_id, NULL, &routine, new) != 0)
+		printf("Thread was not created");// progrma must end 
 	return (new);
 }
 
