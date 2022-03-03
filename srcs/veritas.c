@@ -6,20 +6,17 @@
 /*   By: satori <satori@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 18:23:12 by mrojas-e          #+#    #+#             */
-/*   Updated: 2022/02/28 16:35:19 by satori           ###   ########.fr       */
+/*   Updated: 2022/03/03 05:35:02 by satori           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sophos.h"
 
-bool	take_fork(t_phil *philo)
+bool	take_forks(t_phil *philo)
 {
-	pthread_mutex_lock(&philo->fork.mutex);
-	philo->fork.value = true;
-	printf("%lu %d has taken a fork\n",
-				get_time(all()->start_time), philo->phil_id);
+	take_fork(&all()->philos->fork.mutex);
 	pthread_mutex_lock(&all()->philos[philo->phil_id % all()->p_count]->fork.mutex);
-	all()->philos[philo->phil_id % all()->p_count]->fork.value = true;
+	all()->philos[philo->phil_id % all()->p_count]->fork.value = false;
 	printf("%lu %d has taken a fork2\n",
 	get_time(all()->start_time), philo->phil_id);
 	printf("%lu %d is eating\n", get_time(all()->start_time), philo->phil_id);
@@ -27,44 +24,23 @@ bool	take_fork(t_phil *philo)
 	return (false);
 }
 
-/* 
-bool	drop_fork(t_phil *philo)
+/* bool	take_fork(t_fork *fork)
 {
-	philo->value = true;
-	while(philo->value == true)
-	{
-		if (all()->meal_limit != 0)
-			{
-				if (all()->meal_limit <= philo->times_eaten)
-				{
-					philo->state = DONE;
-					pthread_mutex_unlock(&philo->fork);
-					pthread_mutex_unlock(&all()->philos[philo->phil_id % all()->p_count]->fork);
-					break ;
-				}
-			}
-			//usleep(all()->t_to_eat * 1000);
-		pthread_mutex_unlock(&philo->fork);
-		pthread_mutex_unlock(&all()->philos[philo->phil_id % all()->p_count]->fork);
-		printf("%lu %d is sleeping\n",get_time(all()->start_time),  philo->phil_id);
-		usleep(all()->t_to_sleep * 1000);
-		printf("%lu %d is thinking\n",get_time(all()->start_time), philo->phil_id);
-	}
-	return (false);
-} */
-
-
-/*
-bool	drop_fork(t_phil *fork, t_phil *phil)
-{
-	fork->value = false;  
-	pthread_mutex_unlock(&fork->fork);
-	if (fork->value == false)
-		printf("%lu %d has taken a fork\n",
-				get_time(all()->start_time), phil->phil_id);
-	return (false);
+	pthread_mutex_lock(&fork->mutex);
+	fork->value = false;
+	printf("%lu %d has taken a fork2\n",
+			get_time(all()->start_time), philo->phil_id);
 }
  */
+bool	drop_fork(t_phil *philo)
+{
+	philo->fork.value = true;
+	pthread_mutex_unlock(&philo->fork.mutex);
+	all()->philos[philo->phil_id % all()->p_count]->fork.value = true;
+	pthread_mutex_unlock(&all()->philos[philo->phil_id % all()->p_count]->fork.mutex);
+	return (false);
+}
+
 bool	input_check(char **argv)
 {
 	int	i;

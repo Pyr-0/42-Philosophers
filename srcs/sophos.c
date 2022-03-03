@@ -6,7 +6,7 @@
 /*   By: satori <satori@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 13:25:07 by mrojas-e          #+#    #+#             */
-/*   Updated: 2022/02/28 16:04:17 by satori           ###   ########.fr       */
+/*   Updated: 2022/02/28 16:47:57 by satori           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,7 @@ void	*routine(void *args)
 				break ;
 			}
 		}
-		//usleep(all()->t_to_eat * 1000);
-		pthread_mutex_unlock(&philo->fork.mutex);
-		pthread_mutex_unlock(&all()->philos[philo->phil_id % all()->p_count]->fork.mutex);
+		drop_fork(philo);
 		printf("%lu %d is sleeping\n",get_time(all()->start_time),  philo->phil_id);
 		usleep(all()->t_to_sleep * 1000);
 		printf("%lu %d is thinking\n",get_time(all()->start_time), philo->phil_id);
