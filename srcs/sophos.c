@@ -6,7 +6,7 @@
 /*   By: mrojas-e <mrojas-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 13:25:07 by mrojas-e          #+#    #+#             */
-/*   Updated: 2022/03/04 19:27:05 by mrojas-e         ###   ########.fr       */
+/*   Updated: 2022/03/04 21:33:01 by mrojas-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ void	*routine(void *args)
 	philo = (t_phil *) args;
 	while (philo->state != DONE && philo->state != DEAD)
 	{
-		if (!(philo->phil_id % 2))// its a workaround 
+		if (!(philo->phil_id % 2))// its a workaround
 			usleep(100);
 		take_forks(philo);
+		drop_forks(philo);
 		if (all()->meal_limit != 0)
 		{
 			if (all()->meal_limit <= philo->times_eaten)
@@ -33,7 +34,6 @@ void	*routine(void *args)
 				break ;
 			}
 		}
-		drop_forks(philo);
 		printf("%lu %d is sleeping\n",get_time(all()->start_time),  philo->phil_id);
 		usleep(all()->t_to_sleep * 1000);
 		printf("%lu %d is thinking\n",get_time(all()->start_time), philo->phil_id);
