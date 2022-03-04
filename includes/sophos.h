@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sophos.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: satori <satori@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mrojas-e <mrojas-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 20:26:52 by mrojas-e          #+#    #+#             */
-/*   Updated: 2022/02/28 16:32:15 by satori           ###   ########.fr       */
+/*   Updated: 2022/03/04 19:08:21 by mrojas-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,10 @@ void			*routine();
 void			init_philos();
 void			free_all();
 unsigned long	get_time(unsigned long begin_time);
-bool			take_fork(t_phil *philo);
-bool			drop_fork(t_phil *philo);
+void			take_fork(t_fork *fork);
+void			take_forks(t_phil *philo);
+void			drop_fork(t_fork *fork);
+void			drop_forks(t_phil *philo);
 bool			input_check(char **argv);
 void			eat(t_phil *fork, t_phil *phil);
 

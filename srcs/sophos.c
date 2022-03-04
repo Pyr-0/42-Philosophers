@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sophos.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: satori <satori@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mrojas-e <mrojas-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 13:25:07 by mrojas-e          #+#    #+#             */
-/*   Updated: 2022/02/28 16:47:57 by satori           ###   ########.fr       */
+/*   Updated: 2022/03/04 19:27:05 by mrojas-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	*routine(void *args)
 	{
 		if (!(philo->phil_id % 2))// its a workaround 
 			usleep(100);
-		take_fork(philo);
+		take_forks(philo);
 		if (all()->meal_limit != 0)
 		{
 			if (all()->meal_limit <= philo->times_eaten)
@@ -33,7 +33,7 @@ void	*routine(void *args)
 				break ;
 			}
 		}
-		drop_fork(philo);
+		drop_forks(philo);
 		printf("%lu %d is sleeping\n",get_time(all()->start_time),  philo->phil_id);
 		usleep(all()->t_to_sleep * 1000);
 		printf("%lu %d is thinking\n",get_time(all()->start_time), philo->phil_id);
