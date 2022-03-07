@@ -6,7 +6,7 @@
 /*   By: mrojas-e <mrojas-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 20:26:52 by mrojas-e          #+#    #+#             */
-/*   Updated: 2022/03/04 19:08:21 by mrojas-e         ###   ########.fr       */
+/*   Updated: 2022/03/07 15:11:35 by mrojas-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,20 @@ typedef struct s_phil{
 	pthread_t		thread_id;
 	int				state;
 	int				times_eaten;
+	unsigned long	last_meal;
 }	t_phil;
 
 typedef struct s_data{
 	pthread_mutex_t lock_state;
+	pthread_mutex_t print_state;
 	int				p_count;
 	int				thread_count;
+	bool				dead;
 	int				t_to_eat;
 	int				t_to_die;
 	int				t_to_sleep;
+	int				moment_to_die;
+	int				start_last_meal;
 	int				meal_limit;
 	unsigned long	start_time;
 	t_phil			**philos;
@@ -71,5 +76,11 @@ void			drop_fork(t_fork *fork);
 void			drop_forks(t_phil *philo);
 bool			input_check(char **argv);
 void			eat(t_phil *fork, t_phil *phil);
+void			join_threads();
+void		protect_print(t_phil *philo, const char *message);
+void		wait_until(t_phil *philo, unsigned long time);
+void		eat_limit(t_phil *philo);
+void		rigor_mortis(t_phil *philo);
+
 
 #endif

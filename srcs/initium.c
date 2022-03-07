@@ -6,7 +6,7 @@
 /*   By: mrojas-e <mrojas-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 16:23:52 by mrojas-e          #+#    #+#             */
-/*   Updated: 2022/03/04 17:41:26 by mrojas-e         ###   ########.fr       */
+/*   Updated: 2022/03/07 15:25:24 by mrojas-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	join_threads()
 	{
 		if (pthread_join(all()->philos[i]->thread_id, NULL) != 0)
 			printf("error\n");
-		//usleep(3000);
 		printf("%lu Philosopher %d has finished\n",get_time(all()->start_time), i);
 		i++;
 	}
@@ -70,6 +69,7 @@ void	init_philos()
 		if(all()->philos[i] == NULL)
 			return ;
 	}
+	
 	all()->philos[all()->p_count] = NULL;
 	join_threads();
 }

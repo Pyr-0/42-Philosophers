@@ -6,42 +6,46 @@
 /*   By: mrojas-e <mrojas-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 13:25:07 by mrojas-e          #+#    #+#             */
-/*   Updated: 2022/03/04 21:33:01 by mrojas-e         ###   ########.fr       */
+/*   Updated: 2022/03/07 15:18:36 by mrojas-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sophos.h"
 
+bool	check_if_somebody_has_died(void)
+{
+	bool	temp;
+	
+	pthread_mutex_lock(&all()->lock_state);
+	temp = all()->dead;
+	pthread_mutex_unlock(&all()->lock_state);
+	return (temp);
+}
 
 void	*routine(void *args)
 {
 	t_phil	*philo;
 
 	philo = (t_phil *) args;
-	while (philo->state != DONE && philo->state != DEAD)
+	philo->last_meal = get_time(0);
+	if (philo->phil_id % 2 == 1)
+		wait_until(philo, get_time(0) + 10);
+	while (philo->state != DONE && check_if_somebody_has_died() == false)
 	{
-		if (!(philo->phil_id % 2))// its a workaround
-			usleep(100);
+		protect_print(philo, "is thinking");
 		take_forks(philo);
+		protect_print(philo, "is eating");
+		philo->times_eaten++;
+		philo->last_meal = get_time(0);
+		wait_until(philo, get_time(0) + all()->t_to_eat);
 		drop_forks(philo);
-		if (all()->meal_limit != 0)
-		{
-			if (all()->meal_limit <= philo->times_eaten)
-			{
-				philo->state = DONE;
-				pthread_mutex_unlock(&philo->fork.mutex);
-				pthread_mutex_unlock(&all()->philos[philo->phil_id % all()->p_count]->fork.mutex);
-				break ;
-			}
-		}
-		printf("%lu %d is sleeping\n",get_time(all()->start_time),  philo->phil_id);
-		usleep(all()->t_to_sleep * 1000);
-		printf("%lu %d is thinking\n",get_time(all()->start_time), philo->phil_id);
+		protect_print(philo, "is sleeping");
+		wait_until(philo, get_time(0) + all()->t_to_sleep);
 	}
 	return (NULL);
 }
 
-//CHECK 0 & 1 phils case PLEASE!
+//CHECK 1 phils case PLEASE!
 int main(int argc, char **argv)
 {
 	if (input_check(argv) && (argc == 5 || argc == 6))
