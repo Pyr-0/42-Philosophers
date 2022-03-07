@@ -6,7 +6,7 @@
 /*   By: mrojas-e <mrojas-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 20:26:52 by mrojas-e          #+#    #+#             */
-/*   Updated: 2022/03/07 15:11:35 by mrojas-e         ###   ########.fr       */
+/*   Updated: 2022/03/07 22:38:27 by mrojas-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,6 @@
 #include <stdbool.h>
 #include <limits.h>
 
-
-enum e_status {
-	THINK ,
-	SLEEP ,
-	READY,
-	DEAD ,
-	DONE ,
-};
 
 typedef struct s_fork{
 	bool			value;
@@ -54,8 +46,6 @@ typedef struct s_data{
 	int				t_to_eat;
 	int				t_to_die;
 	int				t_to_sleep;
-	int				moment_to_die;
-	int				start_last_meal;
 	int				meal_limit;
 	unsigned long	start_time;
 	t_phil			**philos;
@@ -75,12 +65,11 @@ void			take_forks(t_phil *philo);
 void			drop_fork(t_fork *fork);
 void			drop_forks(t_phil *philo);
 bool			input_check(char **argv);
-void			eat(t_phil *fork, t_phil *phil);
 void			join_threads();
-void		protect_print(t_phil *philo, const char *message);
-void		wait_until(t_phil *philo, unsigned long time);
-void		eat_limit(t_phil *philo);
-void		rigor_mortis(t_phil *philo);
+void			protect_print(t_phil *philo, const char *message);
+void			wait_until(t_phil *philo, unsigned long time);
+bool			eat_limit(t_phil *philo);
+bool			check_if_dead(void);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mrojas-e <mrojas-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 13:01:20 by mrojas-e          #+#    #+#             */
-/*   Updated: 2022/03/07 14:49:32 by mrojas-e         ###   ########.fr       */
+/*   Updated: 2022/03/07 22:59:46 by mrojas-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,5 @@ void	take_forks(t_phil *philo)
 	protect_print(philo, "Has taken a fork");
 	take_fork(&all()->philos[(philo->phil_id) % all()->p_count]->fork);
 	protect_print(philo, "Has taken a fork");
-	/*protect_print(philo, "Is eating");
-	philo->times_eaten++;
-	philo_sleeps(all()->t_to_sleep);
-	//usleep(200000);
-	get_time(all()->start_last_meal);*/
 }
+

@@ -6,7 +6,7 @@
 /*   By: mrojas-e <mrojas-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 16:23:52 by mrojas-e          #+#    #+#             */
-/*   Updated: 2022/03/07 15:25:24 by mrojas-e         ###   ########.fr       */
+/*   Updated: 2022/03/07 23:04:16 by mrojas-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,10 @@ t_phil	*new_phil(int i)
 	if (new == NULL)
 		return (NULL);
 	(*new).phil_id = i + 1;
-	(*new).state = READY;
 	(*new).times_eaten = 0;
 	if (pthread_mutex_init(&new->fork.mutex, NULL) != 0)
 		printf("Mutex was not created"); // program must end 
-	if (pthread_create(&new->thread_id, NULL, &routine, new) != 0)
+	if (pthread_create(&new->thread_id, NULL, routine, new) != 0)
 		printf("Thread was not created");// progrma must end 
 	return (new);
 }
@@ -60,7 +59,7 @@ void	init_philos()
 	int	i;
 
 	i = -1;
-	all()->philos = malloc(sizeof(t_phil) * (all()->p_count + 1));
+	all()->philos = malloc(sizeof(t_phil*) * (all()->p_count + 1));
 	if(all()->philos == NULL)
 		return ;
 	while (++i < all()->p_count)
@@ -69,7 +68,7 @@ void	init_philos()
 		if(all()->philos[i] == NULL)
 			return ;
 	}
-	
+
 	all()->philos[all()->p_count] = NULL;
 	join_threads();
 }
@@ -97,6 +96,6 @@ bool	init_data(int argc, char **argv)
 			return (false);
 	}
 	else
-		all()->meal_limit = 0; 
+		all()->meal_limit = -1 ; 
 	return (true);
 }

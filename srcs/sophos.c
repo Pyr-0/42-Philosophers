@@ -6,21 +6,11 @@
 /*   By: mrojas-e <mrojas-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 13:25:07 by mrojas-e          #+#    #+#             */
-/*   Updated: 2022/03/07 15:18:36 by mrojas-e         ###   ########.fr       */
+/*   Updated: 2022/03/07 22:55:41 by mrojas-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sophos.h"
-
-bool	check_if_somebody_has_died(void)
-{
-	bool	temp;
-	
-	pthread_mutex_lock(&all()->lock_state);
-	temp = all()->dead;
-	pthread_mutex_unlock(&all()->lock_state);
-	return (temp);
-}
 
 void	*routine(void *args)
 {
@@ -30,7 +20,7 @@ void	*routine(void *args)
 	philo->last_meal = get_time(0);
 	if (philo->phil_id % 2 == 1)
 		wait_until(philo, get_time(0) + 10);
-	while (philo->state != DONE && check_if_somebody_has_died() == false)
+	while (check_if_dead() == false && eat_limit(philo) == false)
 	{
 		protect_print(philo, "is thinking");
 		take_forks(philo);
@@ -57,6 +47,7 @@ int main(int argc, char **argv)
 	}
 	else
 		printf("Invalid Input!\n");
-	free_all(); // ??
+	free_all (); // ??
+
 	return (0);
 }
