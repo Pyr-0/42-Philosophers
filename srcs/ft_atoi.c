@@ -6,21 +6,52 @@
 /*   By: mrojas-e <mrojas-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 18:48:02 by mrojas-e          #+#    #+#             */
-/*   Updated: 2022/03/07 22:38:24 by mrojas-e         ###   ########.fr       */
+/*   Updated: 2022/03/08 19:32:46 by mrojas-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sophos.h"
 
-bool	eat_limit(t_phil *philo)
+static	int	ft_isspace(char c)
 {
-	if (all()->meal_limit == -1)
-		return (false);
-	if (all()->meal_limit <= philo->times_eaten)
+	if (c == ' ' || c == '\f' || c == '\v'
+		|| c == '\n' || c == '\r' || c == '\t')
+		return (1);
+	return (0);
+}
+
+static int	ft_isdigit(int c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
+}
+
+bool	ft_atoi(const char *str, int *res)
+{
+	int		sign;
+	long	result;
+	int		counter;
+
+	sign = 1;
+	result = 0;
+	counter = 0;
+	while (ft_isspace (str[counter]))
+		counter ++;
+	if (str[counter] == '+')
+		counter++;
+	else if (str[counter] == '-')
 	{
-		pthread_mutex_unlock(&philo->fork.mutex);
-		pthread_mutex_unlock(&all()->philos[philo->phil_id % all()->p_count]->fork.mutex);
-		return (true);
+		sign = -1;
+		counter++;
 	}
-	return (false);
+	while (ft_isdigit(str[counter]))
+	{
+		result = result * 10 + (str[counter] - '0');
+		if (result > INT_MAX || result * sign < INT_MIN)
+			return (false);
+		counter++;
+	}
+	*res = result * sign;
+	return (true);
 }

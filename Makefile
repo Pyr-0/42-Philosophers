@@ -6,18 +6,18 @@
 #    By: mrojas-e <mrojas-e@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/20 16:08:58 by mrojas-e          #+#    #+#              #
-#    Updated: 2022/03/07 22:51:04 by mrojas-e         ###   ########.fr        #
+#    Updated: 2022/03/08 19:33:43 by mrojas-e         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 		=	philo
 CC			=	gcc
-CC_FLAGS	=	-Wall -Werror -Wextra -pthread -g 
+CC_FLAGS	=	-Wall -Werror -Wextra -pthread -g
 RM			=	rm -rf
 DIR_HEADERS =	./includes/
 DIR_SRCS	=	./srcs/
 DIR_OBJS	=	./obj/
-SRC			=	sophos.c utilitas.c initium.c veritas.c instructio.c fork_mechanics.c
+SRC			=	sophos_main.c utilitas.c initium.c veritas.c ft_atoi.c fork_mechanics.c
 SRCS		=	$(SRC)
 OBJS 		=	$(SRCS:%.c=$(DIR_OBJS)%.o)
 
